@@ -1,6 +1,6 @@
 'strict mode';
 
-const pacientsDaos = require('../daos/pacientsDaos');
+const pacientsDaos = require('../daos/pacientDaos');
 
 async function addPacient(req){
     let newPacient = {
@@ -11,8 +11,7 @@ async function addPacient(req){
         age: req.age,
         email: req.email,
         ensurance: req.ensurance,
-        cell_phone: req.cell_phone,
-        password: req.password
+        cell_phone: req.cell_phone
     }   
     await pacientsDaos.addPacient(newPacient);
 }
@@ -41,7 +40,7 @@ async function getPacientsListForDayAndProcedure(day, procedure){
         procedure: procedure
     }
     try{
-        let response = await pacientsDaos.getPacientsList(data);
+        let response = await pacientsDaos.getPacientsListPrestation(data);
         return {
             code: 200,
             data: response,

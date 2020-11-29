@@ -9,7 +9,6 @@ async function addUser(req){
         email: req.email,
         password: req.password,
         is_admin: req.is_admin
-
     }   
     await authDaos.addUser(newUser);
 }

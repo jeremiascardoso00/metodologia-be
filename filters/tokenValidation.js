@@ -1,9 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const dataBase = require('../harcodeo/DataBase');
 
 const key = 'shhhhh';
-let tokenContenido;
 
 //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvRW5jb250cmFkbyI6eyJ1c2VyIjoiQWxiZXJ0byIsInBhc3N3b3JkIjoiJDJiJDEwJDVkZkQ5QXExcWh0Qlc0aFNIT2dvVk84RnJFWDdTbWJ5aHF2My82TjFXNm1PUll1QU5JSXJDIn0sImlhdCI6MTU5ODUwOTYxMn0.HtoTEMAfNWXLkJs_SwM3SrG_gDmqKQBKOn-F_3vIHGk'
 
@@ -27,7 +25,6 @@ const tokenValidation = (req, res, next) => {
             mensaje: 'Token no proveída.'
         });
     }
-
 }
 
 module.exports = { tokenValidation };

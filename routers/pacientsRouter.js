@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const tokenValidationAdmin = require('../filters/tokenValidationAdmin');
-const pacientsResource = require('../resources/authResouces/pacientsResources');
+const pacientsResource = require('../resources/pacientsResources');
 
 router.use(tokenValidationAdmin.tokenValidationAdmin);
 router.post('/add', pacientsResource.addPacient);

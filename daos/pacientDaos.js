@@ -1,25 +1,38 @@
 const db = require('../config/db');
 
 async function addPacient (newPacient){
-    let query = `INSERT INTO "pacient" ("pacient_firstName", "pacient_lastName", "pacient_DNI", "pacient_birthdaydate", "pacient_age", "pacient_mail", "pacient_ensurance", "pacient_phone", "pacient_password")
-                        VALUES ($(user_id), $(firstName), $(lastName), $(DNI), $(birthday_date), $(age), $(email), $(ensurance), $(cell_phone), $(password))`; 
+    let query = `INSERT INTO public.pacient (pacient_firstName, pacient_lastName, pacient_DNI, pacient_birthday, pacient_age, pacient_mail, pacient_ensurance, pacient_cellphone_number)
+                        VALUES ($(user_id), $(firstName), $(lastName), $(DNI), $(birthday_date), $(age), $(email), $(ensurance), $(cell_phone))`; 
     
     return await db.none(query, newPacient);
 }
 
 async function getPacientsList (){
-    let query = `SELECT * FROM "pacient"`;
-    let select = await db.query(query);
-    return select;
+    try{
+        const query = `SELECT pacient."pacient_firstname", pacient."pacient_lastname", pacient."pacient_dni", pacient."pacient_birthday", pacient."pacient_age", pacient."pacient_mail", pacient."pacient_ensurance", pacient."pacient_cellphone_number"
+        FROM public.pacient`;
+        const select = await db.query(query);
+        return select;
+    } catch(e){
+        return e;
+    }
+    
 }
 //recibe prestacion y dia
 async function getPacientsListPrestation (data){
-    let query = `SELECT * FROM "pacient"
-                JOIN appointment
-                ON (pacient.id = "appointment.FK_idpacient")
-                WHERE (appointment.appointment_date = $(dia) AND "appointment.FK_idprestacion" = $(prestacion))`;
-    let select = await db.query(query, data);
-    return select;
+    try {
+        const query = `SELECT pacient.pacient_firstname, pacient.pacient_lastname, pacient.pacient_mail, procedure_.name, procedure_.procedure_description FROM "pacient"
+                JOIN "appointment"
+                ON (pacient.idpacient = appointment."FK_idpacient")
+				JOIN procedure_
+				ON ("appointment"."FK_idprocedure" = procedure_.idprocedure)
+                WHERE (appointment.appointment_date = $(day) AND appointment."FK_idprestacion" = $(procedure))`;
+        const select = await db.query(query, data);
+        return select;
+    } catch(e) {
+        return e;
+    }
+    
 }
 
 async function addPacientClinicalRecord (clinicalRecord){

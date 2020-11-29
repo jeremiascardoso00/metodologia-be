@@ -1,21 +1,15 @@
 
 const api = require('express')();
 
-const usersRouter = require('./routers/usersRouter');
 const pacientsRouter = require('./routers/pacientsRouter');
 const schedulesRouter = require('./routers/schedulesRouter');
 const authRouter = require('./routers/authRouter');
-const contactRouter = require('./routers/contactRouter');
-
-api.use('/users', usersRouter);
 
 api.use('/pacients', pacientsRouter);
 
 api.use('/schedules', schedulesRouter);
 
 api.use('/auth', authRouter);
-
-api.use('/contact', contactRouter);
 
 //agregar historia clinica
 //api.use('/clinic-history', clinicHistoryRouter);
@@ -24,9 +18,7 @@ module.exports = {
     api_v1 : api
 };
 
-
 /*
-
 Listado de pacientes *
 - Listado de pacientes a atender por día indicando prestación a realizar. *
 - El paciente puede seleccionar el turno (día y horario) desde la página. La Dra. atiende a la mañana de 8.00

@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
 const loginResource = require('../resources/authResouces/loginResources');
 const registerResource = require('../resources/authResouces/registerResources');
 
@@ -35,7 +34,6 @@ const registerResource = require('../resources/authResouces/registerResources');
 *       200:
 *         description: login
 */
-
 
 /**
 * @swagger
@@ -73,11 +71,7 @@ const registerResource = require('../resources/authResouces/registerResources');
 *         description: register
 */
 
-
 router.post('/login', loginResource);
 router.post('/register',registerResource);
-
-
-
 
 module.exports = router;

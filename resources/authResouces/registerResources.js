@@ -34,9 +34,8 @@ const register = async (req,res )=> {
             //cargar en DB postgreSQL
             try {
                 //cambiar a usuarios
-                await authService.addUser({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: psw, is_admin: false});
-                res.json(registedUser.message).status(registedUser.code);
-                    
+                await authService.addUser({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: psw, is_admin: req.body.is_admin});
+                res.json(registedUser.message).status(registedUser.code);     
             }
             catch(e){
                 res.json(e);
