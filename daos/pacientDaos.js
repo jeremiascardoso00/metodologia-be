@@ -1,10 +1,13 @@
 const db = require('../config/db');
 
 async function addPacient (newPacient){
-    let query = `INSERT INTO public.pacient (pacient_firstName, pacient_lastName, pacient_DNI, pacient_birthday, pacient_age, pacient_mail, pacient_ensurance, pacient_cellphone_number)
-                        VALUES ($(user_id), $(firstName), $(lastName), $(DNI), $(birthday_date), $(age), $(email), $(ensurance), $(cell_phone))`; 
-    
-    return await db.none(query, newPacient);
+    try {
+        const query = `INSERT INTO public.pacient ("pacient_firstname", "pacient_lastname", "pacient_dni", pacient_birthday, pacient_age, pacient_mail, pacient_ensurance, pacient_cellphone_number)
+                        VALUES ($(firstName), $(lastName), $(DNI), $(birthday_date), $(age), $(email), $(ensurance), $(cell_phone))`; 
+        return await db.none(query, newPacient);
+    } catch(e){
+        return e;
+    }
 }
 
 async function getPacientsList (){
@@ -36,10 +39,14 @@ async function getPacientsListPrestation (data){
 }
 
 async function addPacientClinicalRecord (clinicalRecord){
-    let query = `INSERT INTO "clinical_record" ("FK_idpacient", "FK_appointment_id", "clinical_record_observation", "clinical_record_date")
+    try {
+        const query = `INSERT INTO "clinical_record" ("FK_idpacient", "FK_appointment_id", "clinical_record_observation", "clinical_record_date")
                         VALUES ($(FK_idpacient), $(FK_appointment_id), $(clinical_record_observation), $(clinical_record_date))`; 
-    
-    return await db.none(query, clinicalRecord);
+        await db.none(query, clinicalRecord);
+        return "success"
+    } catch(e){
+        return e;
+    }
 }
 
 module.exports = {

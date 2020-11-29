@@ -2,17 +2,7 @@
 
 const pacientsDaos = require('../daos/pacientDaos');
 
-async function addPacient(req){
-    let newPacient = {
-        firstName: req.firstName,
-        lastName: req.lastName,
-        DNI: req.DNI,
-        birthday_date: req.birthday_date,
-        age: req.age,
-        email: req.email,
-        ensurance: req.ensurance,
-        cell_phone: req.cell_phone
-    }   
+async function addPacient(newPacient){ 
     await pacientsDaos.addPacient(newPacient);
 }
 
@@ -56,14 +46,8 @@ async function getPacientsListForDayAndProcedure(day, procedure){
 }
 
 //armo el objeto clinical record para enviarlo al daos
-async function addPacientClinicalRecord(req){
-    let newPacientClinicalRecord = {
-        FK_idpacient: req.pacientId,
-        FK_appointment_id: req.appointmentId,
-        clinical_record_observation: req.clinicalRecordObservation,
-        clinical_record_date: req.clinicalRecordDate
-    }   
-    await pacientsDaos.addPacientClinicalRecord(newPacientClinicalRecord);
+async function addPacientClinicalRecord(newPacientClinicalRecord){
+    return await pacientsDaos.addPacientClinicalRecord(newPacientClinicalRecord);
 }
 
 module.exports = {

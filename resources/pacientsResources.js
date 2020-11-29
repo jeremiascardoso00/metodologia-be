@@ -2,8 +2,9 @@ const pacientsServices = require('../services/pacientsServices');
 
 const addPacient = async (req,res )=> {
     try {
-        await pacientsServices.addPacient({firstName: req.body.firstName, lastName: req.body.lastName, DNI: req.body.DNI, birthday_date: req.body.birthday_date, age: req.body.age, email: req.body.email, ensurance: req.body.ensurance, cell_phone: req.body.cell_phone});
-        res.json(registedUser.message).status(registedUser.code);
+        await pacientsServices.addPacient({firstName: req.body.pacient_firstName, lastName: req.body.pacient_lastName, DNI: req.body.pacient_DNI, birthday_date: req.body.pacient_birthday, age: req.body.pacient_age, email: req.body.pacient_mail, ensurance: req.body.pacient_ensurance, cell_phone: req.body.pacient_cellphone_number});
+        res.json({message: "success",
+                  code: 200});
     }
     catch(e){
         res.json(e);
@@ -30,8 +31,10 @@ const getPacientsListForDayAndProcedure = async (req, res)=> {
 
 const addPacientClinicalRecord = async (req, res) => {
     try {
-        await pacientsServices.addPacientClinicalRecord({firstName: req.body.firstName, lastName: req.body.lastName, DNI: req.body.DNI, birthday_date: req.body.birthday_date, age: req.body.age, email: req.body.email, ensurance: req.body.ensurance, cell_phone: req.body.cell_phone, password: psw});
-        res.json(registedUser.message).status(registedUser.code);
+        const result = await pacientsServices.addPacientClinicalRecord({FK_idpacient: req.body.FK_idpacient, FK_appointment_id: req.body.FK_appointment_id, clinical_record_observation: req.body.clinical_record_observation, clinical_record_date: req.body.clinical_record_date});
+        res.json(result);
+        res.status(200);
+        res.end();  
     }
     catch(e){
         res.json(e);
